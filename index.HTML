@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bacolor Promotional Website</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    * { 
+      box-sizing: border-box; 
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Georgia', serif;
+      background: linear-gradient(to bottom right, #FFD1DC, #FFC0CB);
+      color: #5D4037;
+      line-height: 1.6;
+    }
+    
+   
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    
+    @keyframes slideIn {
+      from { transform: translateX(-100%); }
+      to { transform: translateX(0); }
+    }
+    
+   
+    .login-box {
+      background: #FFF5EE; 
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+      width: 320px;
+      text-align: center;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1000;
+      animation: fadeIn 1s ease;
+      transition: all 0.3s ease;
+    }
+    
+    .login-box:hover {
+      transform: translate(-50%, -52%);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    }
+    
+    .login-box .logo {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin: 0 auto 20px;
+      object-fit: cover;
+      border: 3px solid #DB7093; 
+      box-shadow: 0 0 10px rgba(219, 112, 147, 0.5);
+      animation: pulse 2s infinite ease-in-out;
+    }
+    
+    .login-box h2 {
+      color: #DB7093; 
+      margin-bottom: 20px;
+      font-size: 1.8rem;
+      letter-spacing: 1px;
+    }
+    
+    .login-box input {
+      width: 100%;
+      padding: 12px 15px;
+      margin: 10px 0;
+      border-radius: 25px;
+      border: 1px solid #FFB6C1;
+      background-color: rgba(255, 255, 255, 0.9);
+      font-size: 16px;
+      transition: all 0.3s;
+      outline: none;
+    }
+    
+    .login-box input:focus {
+      border-color: #DB7093; 
+      box-shadow: 0 0 8px rgba(219, 112, 147, 0.5);
+    }
+    
+    .login-box input[type="submit"] {
+      background: linear-gradient(to right, #DB7093, #C71585); 
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      letter-spacing: 1px;
+      margin-top: 15px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .login-box input[type="submit"]:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(219, 112, 147, 0.4);
+    }
+    
+    .error { 
+      color: #FF1493; 
+      font-size: 14px;
+      margin-top: 5px;
+      font-style: italic;
+    }
+    
+    .hidden { 
+      display: none; 
+    }
+    
+  
+    .sidebar {
+      width: 250px;
+      background: linear-gradient(to bottom, #DB7093, #C71585); 
+      color: white;
+      padding: 20px 0;
+      position: fixed;
+      height: 100vh;
+      top: 0;
+      left: 0;
+      overflow-y: auto;
+      z-index: 100;
+      transition: all 0.3s ease;
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .sidebar h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 1.8rem;
+      padding: 15px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      letter-spacing: 2px;
+    }
+    
+    .sidebar a {
+      display: block;
+      color: white;
+      padding: 15px 25px;
+      text-decoration: none;
+      transition: all 0.3s;
+      margin: 5px 0;
+      border-left: 3px solid transparent;
+    }
+    
+    .sidebar a:hover, .sidebar a.active {
+      background-color: rgba(255, 255, 255, 0.2);
+      border-left: 3px solid #FFF;
+      padding-left: 30px;
+    }
+    
+    .sidebar a i {
+      margin-right: 10px;
+      width: 20px;
+      text-align: center;
+    }
+    
+    .content {
+      margin-left: 250px;
+      padding: 40px;
+      min-height: 100vh;
+      animation: fadeIn 0.5s ease;
+      transition: margin-left 0.3s;
+    }
+    
+   
+    .menu-toggle {
+      display: none;
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: #DB7093;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      z-index: 999;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    
+    .section {
+      display: none;
+      animation: fadeIn 0.8s ease;
+    }
+    
+    .section.active {
+      display: block;
+    }
+    
+    .section h1 {
+      color: #DB7093; 
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #FFB6C1;
+    }
+    
+   
+    header.hero {
+      background: url(view.jpg) center/cover no-repeat;
+      height: 80vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+      text-align: center;
+      padding: 20px;
+      position: relative;
+      border-radius: 15px;
+      overflow: hidden;
+      margin-bottom: 30px;
+    }
+    
+    header.hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5));
+      z-index: 1;
+    }
+    
+    header.hero .hero-content {
+      position: relative;
+      z-index: 2;
+      animation: fadeIn 1.5s ease;
+    }
+    
+    header.hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      border: none;
+      color: white;
+    }
+    
+    header.hero p {
+      font-size: 1.3rem;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+   
+    .carousel-container {
+      position: relative;
+      margin: 30px 0;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .carousel {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none; 
+      -ms-overflow-style: none; 
+    }
+    
+    .carousel::-webkit-scrollbar {
+      display: none; 
+    }
+    
+    .carousel-slide {
+      flex: 0 0 100%;
+      scroll-snap-align: start;
+      position: relative;
+    }
+    
+    .carousel img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+    
+    .carousel-nav {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      z-index: 10;
+    }
+    
+    .carousel-button {
+      background-color: rgba(219, 112, 147, 0.7);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transform: translateY(-50%);
+      transition: all 0.3s;
+    }
+    
+    .carousel-button:hover {
+      background-color: rgba(219, 112, 147, 1);
+    }
+    
+    /* Videos */
+    video {
+      width: 100%;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      margin: 20px 0;
+    }
+    
+    
+    .contact-form {
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .contact-form input, .contact-form textarea {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 10px;
+      border: 1px solid #FFB6C1;
+      outline: none;
+    }
+    
+    .contact-form input:focus, .contact-form textarea:focus {
+      border-color: #DB7093;
+      box-shadow: 0 0 8px rgba(219, 112, 147, 0.5);
+    }
+    
+    .contact-form button {
+      background: linear-gradient(to right, #DB7093, #C71585);
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+    
+    .contact-form button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(219, 112, 147, 0.4);
+    }
+    
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin: 20px 0;
+    }
+    
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .contact-item i {
+      color: #DB7093;
+      font-size: 1.2rem;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
+    }
+    
+   
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: linear-gradient(to right, #DB7093, #C71585);
+      color: white;
+      width: calc(100% - 250px);
+      margin-left: 250px;
+      transition: width 0.3s, margin-left 0.3s;
+    }
+    
+    footer .social-icons {
+      margin-top: 15px;
+    }
+    
+    footer .social-icons a {
+      color: white;
+      font-size: 1.5rem;
+      margin: 0 10px;
+      transition: transform 0.3s;
+    }
+    
+    footer .social-icons a:hover {
+      transform: translateY(-5px);
+    }
+    
+   
+    .card-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin: 30px 0;
+    }
+    
+    .card {
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+    
+    .card:hover {
+      transform: translateY(-10px);
+    }
+    
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    
+    .card-content {
+      padding: 20px;
+    }
+    
+    .card-content h3 {
+      color: #DB7093;
+      margin-bottom: 10px;
+    }
+    
+   
+    @media screen and (max-width: 991px) {
+      .sidebar {
+        width: 220px;
+      }
+      
+      .content, footer {
+        margin-left: 220px;
+        width: calc(100% - 220px);
+      }
+    }
+    
+    @media screen and (max-width: 768px) {
+      .menu-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      .sidebar {
+        transform: translateX(-100%);
+        width: 250px;
+      }
+      
+      .sidebar.active {
+        transform: translateX(0);
+      }
+      
+      .content, footer {
+        margin-left: 0;
+        width: 100%;
+      }
+      
+      header.hero h1 {
+        font-size: 2.2rem;
+      }
+      
+      header.hero p {
+        font-size: 1.1rem;
+      }
+      
+      .card-container {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      }
+    }
+    
+    @media screen and (max-width: 480px) {
+      .login-box {
+        width: 90%;
+        padding: 20px;
+      }
+      
+      .content {
+        padding: 20px;
+      }
+      
+      header.hero {
+        height: 60vh;
+      }
+      
+      header.hero h1 {
+        font-size: 1.8rem;
+      }
+      
+      header.hero p {
+        font-size: 1rem;
+      }
+      
+      .carousel img {
+        height: 250px;
+      }
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="login-box" id="loginBox">
+    <img src="logo.png" alt="Bacolor Logo" class="logo">
+    <h2>Welcome to Bacolor</h2>
+    <input type="text" id="username" placeholder="Username" autocomplete="off">
+    <input type="password" id="password" placeholder="Password">
+    <p id="message" class="error"></p>
+    <input type="submit" value="Login" onclick="checkLogin()">
+  </div>
+  
+ 
+  <div id="mainContent" class="hidden">
+  
+    <button class="menu-toggle" id="menuToggle">
+      <i class="fas fa-bars"></i>
+    </button>
+    
+   
+    <div class="sidebar" id="sidebar">
+      <h2>Bacolor</h2>
+      <a href="#" id="homeLink" onclick="showSection('home')"><i class="fas fa-home"></i> Home</a>
+      <a href="#" id="historyLink" onclick="showSection('history')"><i class="fas fa-landmark"></i> History</a>
+      <a href="#" id="attractionsLink" onclick="showSection('attractions')"><i class="fas fa-map-marker-alt"></i> Attractions</a>
+      <a href="#" id="cultureLink" onclick="showSection('culture')"><i class="fas fa-theater-masks"></i> Culture</a>
+      <a href="#" id="contactLink" onclick="showSection('contact')"><i class="fas fa-envelope"></i> Contact Us</a>
+      <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </div>
+    
+   
+    <div class="content">
+      
+      <div id="home" class="section active">
+        <header class="hero">
+          <div class="hero-content">
+            <h1>Discover the Heart of Bacolor</h1>
+            <p>Rich in history, culture, and resilience — welcome to Bacolor, Pampanga.</p>
+          </div>
+        </header>
+        
+        <p>Bacolor is a heritage-rich town located in Pampanga, Philippines. Despite the devastation caused by Mount Pinatubo's eruption, Bacolor rose with pride, showcasing its deeply rooted traditions, architectural landmarks, and vibrant Kapampangan culture.</p>
+        
+        <div class="card-container">
+          <div class="card">
+            <img src="San Guillermo Parish Church.jpg" alt="San Guillermo Parish Church">
+            <div class="card-content">
+              <h3>San Guillermo Parish Church</h3>
+              <p>Half-buried by lahar, this church stands as a powerful symbol of faith and resilience.</p>
+            </div>
+          </div>
+          
+          <div class="card">
+            <img src="Rich Cultural Heritage.jpg" alt="Cultural Festivals">
+            <div class="card-content">
+              <h3>Rich Cultural Heritage</h3>
+              <p>Experience the vibrant festivals and traditions of Bacolor's Kapampangan culture.</p>
+            </div>
+          </div>
+          
+          <div class="card">
+            <img src="Heritage Houses.jpg" alt="Heritage Houses">
+            <div class="card-content">
+              <h3>Heritage Houses</h3>
+              <p>Walk through history in the ancestral homes that blend Spanish and Filipino architecture.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+   
+      <div id="history" class="section">
+        <h1>History of Bacolor</h1>
+        <p>Bacolor dates back to 1571, originally known as "Baculud" (meaning high ground). It served as the capital of Pampanga and even as the temporary capital of the Philippines during the British invasion in the 1700s. Bacolor has endured natural disasters, colonial transitions, and wars, all while preserving its deep historical and cultural legacy.</p>
+        
+        <div class="carousel-container">
+          <div class="carousel" id="historyCarousel">
+            <div class="carousel-slide">
+              <img src="historyCarousel.jpg" alt="Old Church Before Eruption">
+            </div>
+            <div class="carousel-slide">
+              <img src="Mt. Pinatubo Eruption.jpg" alt="Mt. Pinatubo Eruption">
+            </div>
+            <div class="carousel-slide">
+              <img src="Don Honorio Ventura Technological State University.jpg" alt="Don Honorio Ventura Technological State University">
+            </div>
+          </div>
+          <div class="carousel-nav">
+            <button class="carousel-button prev-button" onclick="moveCarousel('historyCarousel', -1)">❮</button>
+            <button class="carousel-button next-button" onclick="moveCarousel('historyCarousel', 1)">❯</button>
+          </div>
+        </div>
+        
+        <h2>Major Historical Events</h2>
+        <ul>
+          <li><strong>1571</strong> - Founding of Bacolor, originally called "Baculud"</li>
+          <li><strong>1762-1764</strong> - Served as temporary capital during British occupation</li>
+          <li><strong>1897</strong> - Revolutionary forces used Bacolor as headquarters</li>
+          <li><strong>1991</strong> - Mount Pinatubo eruption buried much of the town</li>
+          <li><strong>1995-Present</strong> - Ongoing rehabilitation and cultural revival</li>
+        </ul>
+      </div>
+      
+      
+      <div id="attractions" class="section">
+        <h1>Top Attractions</h1>
+        
+        <div class="card-container">
+          <div class="card">
+            <img src="San Guillermo Parish Church.jpg" alt="San Guillermo Parish Church">
+            <div class="card-content">
+              <h3>San Guillermo Parish Church</h3>
+              <p>Half-buried by lahar from the Mount Pinatubo eruption, this church remains an active place of worship and a testament to faith. Visitors enter through what was once a window but now serves as the main entrance.</p>
+            </div>
+          </div>
+          
+          <div class="card">
+            <img src="Don Honorio Ventura Technological State University.jpg" alt="DHVTSU">
+            <div class="card-content">
+              <h3>Don Honorio Ventura Technological State University</h3>
+              <p>The first state university in Pampanga, offering quality education and preserving local academic traditions.</p>
+            </div>
+          </div>
+          
+          <div class="card">
+            <img src="Heritage Houses.jpg" alt="Heritage Houses">
+            <div class="card-content">
+              <h3>Heritage Houses</h3>
+              <p>Several ancestral homes showcase the Spanish and Filipino architectural fusion that characterized Bacolor before the volcanic disaster.</p>
+            </div>
+          </div>
+        </div>
+        
+        <h2>Natural Attractions</h2>
+        <p>Despite the devastation from Mount Pinatubo, Bacolor has transformed some lahar-covered areas into eco-tourism sites. These areas now serve as both memorial spaces and recreational zones for visitors.</p>
+      </div>
+      
+      
+      <div id="culture" class="section">
+        <h1>Culture & Traditions</h1>
+        <p>Bacolor is known for its grand fiestas, notably the La Naval Fiesta every November. The town celebrates through processions, music, dances, and cuisine — all reflecting Kapampangan creativity and warmth.</p>
+        
+        <div class="carousel-container">
+          <div class="carousel" id="cultureCarousel">
+            <div class="carousel-slide">
+              <img src="Festival Dancers.jpg" alt="Festival Dancers">
+            </div>
+            <div class="carousel-slide">
+              <img src="Street Parade.jpg" alt="Street Parade">
+            </div>
+            <div class="carousel-slide">
+              <img src="Kapampangan Cuisine.jpg" alt="Kapampangan Cuisine">
+            </div>
+          </div>
+          <div class="carousel-nav">
+            <button class="carousel-button prev-button" onclick="moveCarousel('cultureCarousel', -1)">❮</button>
+            <button class="carousel-button next-button" onclick="moveCarousel('cultureCarousel', 1)">❯</button>
+          </div>
+        </div>
+        
+        <h2>La Naval Fiesta</h2>
+        <video controls poster="La Naval Fiesta.jpg">
+          <source src="https://youtu.be/q7EEmIb_gmY" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <p>The La Naval Festival is a vibrant religious and cultural event. The streets come alive with parades, traditional performances, and decorated carriages bearing saints. It is both a spiritual and festive showcase of Bacolor's faith and artistry.</p>
+        
+        <h2>Kapampangan Cuisine</h2>
+        <p>Bacolor is home to some of the most delicious Kapampangan dishes. Local specialties include:</p>
+        <ul>
+          <li><strong>Sisig</strong> - A sizzling dish made from parts of pig's head and liver</li>
+          <li><strong>Tocino</strong> - Sweet cured pork</li>
+          <li><strong>Bringhe</strong> - The Kapampangan version of paella</li>
+          <li><strong>San Nicolas Cookies</strong> - Traditional oval-shaped cookies</li>
+        </ul>
+      </div>
+      
+     
+      <div id="contact" class="section">
+        <h1>Contact Us</h1>
+        
+        <div class="contact-info">
+          <div class="contact-item">
+            <i class="fas fa-phone"></i>
+            <p>0912-345-6789</p>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-envelope"></i>
+            <p>tourism@bacolor.gov.ph</p>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <p>Municipal Hall, Bacolor, Pampanga</p>
+          </div>
+        </div>
+        
+        <div class="contact-form">
+          <h2>Send us a message</h2>
+          <input type="text" placeholder="Your Name">
+          <input type="email" placeholder="Your Email">
+          <input type="text" placeholder="Subject">
+          <textarea rows="5" placeholder="Your Message"></textarea>
+          <button type="submit">Send Message</button>
+        </div>
+        
+        <h2>Find Us</h2>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3856.543359188848!2d120.63498907507716!3d15.015870785083054!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3396f224c589cd6f%3A0x6a378c161c2cc1ce!2sBacolor%2C%20Pampanga!5e0!3m2!1sen!2sph!4v1714400000000!5m2!1sen!2sph" width="100%" height="400" style="border:0; border-radius: 15px; margin-top: 20px;" allowfullscreen="" loading="lazy"></iframe>
+      </div>
+    </div>
+    
+   
+    <footer>
+      <p>&copy; 2025 Municipality of Bacolor | All Rights Reserved</p>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+      </div>
+    </footer>
+  </div>
+  
+  <script>
+   
+    function checkLogin() {
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      const message = document.getElementById('message');
+      
+      
+      if (username === 'Princess' && password === '12345') {
+        document.getElementById('loginBox').classList.add('hidden');
+        document.getElementById('mainContent').classList.remove('hidden');
+
+        showSection('home');
+      } else {
+        message.textContent = 'Invalid username or password';
+        setTimeout(() => { message.textContent = ''; }, 3000);
+      }
+    }
+    
+ 
+    function logout() {
+      document.getElementById('loginBox').classList.remove('hidden');
+      document.getElementById('mainContent').classList.add('hidden');
+      document.getElementById('username').value = '';
+      document.getElementById('password').value = '';
+    }
+    
+  
+    function showSection(sectionId) {
+    
+      const sections = document.querySelectorAll('.section');
+      sections.forEach(section => {
+        section.classList.remove('active');
+      });
+      
+   
+      document.getElementById(sectionId).classList.add('active');
+      
+     
+      const links = document.querySelectorAll('.sidebar a');
+      links.forEach(link => {
+        link.classList.remove('active');
+      });
+      document.getElementById(sectionId + 'Link').classList.add('active');
+      
+      
+      if (window.innerWidth <= 768) {
+        document.getElementById('sidebar').classList.remove('active');
+      }
+    }
+    
+   
+    document.getElementById('menuToggle').addEventListener('click', function() {
+      document.getElementById('sidebar').classList.toggle('active');
+    });
+    
+  
+    function moveCarousel(carouselId, direction) {
+      const carousel = document.getElementById(carouselId);
+      const slideWidth = carousel.querySelector('.carousel-slide').clientWidth;
+      carousel.scrollBy({
+        left: slideWidth * direction,
+        behavior: 'smooth'
+      });
+    }
+    
+    
+    function setupAutoCarousels() {
+      const carousels = document.querySelectorAll('.carousel');
+      carousels.forEach(carousel => {
+        let currentIndex = 0;
+        const slides = carousel.querySelectorAll('.carousel-slide');
+        const totalSlides = slides.length;
+        
+        setInterval(() => {
+          currentIndex = (currentIndex + 1) % totalSlides;
+          const slideWidth = slides[0].clientWidth;
+          carousel.scrollTo({
+            left: slideWidth * currentIndex,
+            behavior: 'smooth'
+          });
+        }, 5000); 
+      });
+    }
+    
+  
+    window.addEventListener('load', setupAutoCarousels);
+    
+  
+    window.addEventListener('resize', function() {
+      if (window.innerWidth > 768) {
+        document.getElementById('sidebar').classList.remove('active');
+      }
+    });
+    
+   
+    document.getElementById('password').addEventListener('keyup', function(event) {
+      if (event.key === 'Enter') {
+        checkLogin();
+      }
+    });
+  </script>
+</body>
+</html>
